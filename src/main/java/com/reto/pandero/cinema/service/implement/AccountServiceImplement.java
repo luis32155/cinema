@@ -8,6 +8,7 @@ import com.reto.pandero.cinema.service.AccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class AccountServiceImplement implements AccountService {
     private AccountRepository accountRepository;
     @Autowired
     private MicroserviceCaller microserviceCaller;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public List<AccountDTO> getAllAcount() {
         List<Account> accounts = accountRepository.findAll();
@@ -58,7 +62,7 @@ public class AccountServiceImplement implements AccountService {
     public void  createAccount(AccountDTO accountDTO) {
         Account account = Account.builder()
                 .username(accountDTO.getUsername())
-                .password(accountDTO.getPassword())
+                .password(passwordEncoder.encode(accountDTO.getPassword()))
                 .email(accountDTO.getEmail())
                 .phoneNumber(accountDTO.getPhoneNumber())
                 .accountType(accountDTO.getAccountType())
