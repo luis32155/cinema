@@ -5,7 +5,6 @@ import com.reto.pandero.cinema.service.stubs.EmailServiceStub;
 import com.reto.pandero.cinema.utils.Constanst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service

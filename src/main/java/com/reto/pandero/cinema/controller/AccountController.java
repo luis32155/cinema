@@ -28,12 +28,14 @@ public class AccountController {
         }
         return ResponseEntity.ok(accountDTO);
     }
+
     @PostMapping
 
     public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO) {
         accountService.createAccount(accountDTO);
         return ResponseEntity.ok("Account created successfully");
     }
+
     @PutMapping("/{id}")
 
     public ResponseEntity<String> updateAccount(@PathVariable Long id, @RequestBody AccountDTO accountDTO) {

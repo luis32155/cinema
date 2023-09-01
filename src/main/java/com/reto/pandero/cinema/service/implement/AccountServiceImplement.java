@@ -12,8 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +24,7 @@ public class AccountServiceImplement implements AccountService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Override
     public List<AccountDTO> getAllAcount() {
         List<Account> accounts = accountRepository.findAll();
@@ -39,7 +38,7 @@ public class AccountServiceImplement implements AccountService {
                         .accountType(account.getAccountType())
                         .build())
                 .collect(Collectors.toList());
-        return accountDTOs ;
+        return accountDTOs;
     }
 
     @Override
@@ -59,7 +58,7 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public void  createAccount(AccountDTO accountDTO) {
+    public void createAccount(AccountDTO accountDTO) {
         Account account = Account.builder()
                 .username(accountDTO.getUsername())
                 .password(passwordEncoder.encode(accountDTO.getPassword()))
@@ -76,10 +75,9 @@ public class AccountServiceImplement implements AccountService {
 
 
         // Llamar al microservicio Prize (simulado con el Stub)
-        if(accountDTO.getAccountType() != AccountType.BASIC){
+        if (accountDTO.getAccountType() != AccountType.BASIC) {
             microserviceCaller.sendToPrizeMicroservice(accountDTO);
         }
-
 
 
         // Llamar al microservicio Benefit (simulado con el Stub)
@@ -91,7 +89,7 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public boolean  updateAccount(Long id, AccountDTO accountDTO) {
+    public boolean updateAccount(Long id, AccountDTO accountDTO) {
         Account existingAccount = accountRepository.findById(id).orElse(null);
         if (existingAccount == null) {
             return false;
@@ -108,7 +106,7 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public boolean  deleteAccount(Long id) {
+    public boolean deleteAccount(Long id) {
         Account existingAccount = accountRepository.findById(id).orElse(null);
         if (existingAccount == null) {
             return false;
