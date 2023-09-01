@@ -1,11 +1,14 @@
 package com.reto.pandero.cinema.controller;
 
 import com.reto.pandero.cinema.dto.AccountDTO;
+import com.reto.pandero.cinema.dto.ApiResponse;
 import com.reto.pandero.cinema.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -30,18 +33,16 @@ public class AccountController {
     }
 
     @PostMapping
+    public ResponseEntity<ApiResponse> createAccount(@Valid @RequestBody  AccountDTO accountDTO) {
 
-    public ResponseEntity<String> createAccount(@RequestBody AccountDTO accountDTO) {
-        accountService.createAccount(accountDTO);
-        return ResponseEntity.ok("Account created successfully");
+        return   accountService.createAccount(accountDTO);
     }
 
     @PutMapping("/{id}")
-
-    public ResponseEntity<String> updateAccount(@PathVariable Long id, @RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<String> updateAccount(@PathVariable Long id, @Valid @RequestBody AccountDTO accountDTO) {
         boolean updated = accountService.updateAccount(id, accountDTO);
         if (updated) {
-            return ResponseEntity.ok("Account updated successfully");
+            return ResponseEntity.ok("Account updated successfully ");
         } else {
             return ResponseEntity.notFound().build();
         }

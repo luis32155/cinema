@@ -1,6 +1,8 @@
 package com.reto.pandero.cinema.service;
 
 import com.reto.pandero.cinema.dto.AccountDTO;
+import com.reto.pandero.cinema.dto.ApiResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public interface AccountService {
 
     AccountDTO getByIdAcount(Long id);
 
-    void createAccount(AccountDTO accountDTO);
+    ResponseEntity<ApiResponse> createAccount(AccountDTO accountDTO);
 
     boolean updateAccount(Long id, AccountDTO accountDTO);
 
